@@ -41,9 +41,9 @@ export default function NonConnecting({ flightData }) {
                 <TableRow>
                   <StyledTableCell align="center">Airline</StyledTableCell>
                   <StyledTableCell align="center">
-                    Start Airport
+                    From
                   </StyledTableCell>
-                  <StyledTableCell align="center">End Airport</StyledTableCell>
+                  <StyledTableCell align="center">To</StyledTableCell>
                   <StyledTableCell align="center">Cost</StyledTableCell>
                   <StyledTableCell align="center">Start Time</StyledTableCell>
                   <StyledTableCell align="center">End Time</StyledTableCell>
