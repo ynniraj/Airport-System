@@ -22,7 +22,7 @@ export default function ShowTable() {
 
   const getallflight = () => {
     axios
-      .get("http://localhost:8080/allflights")
+      .get("https://flight-airport.herokuapp.com/allflights")
       .then((res) => {
         console.log(res.data);
         dispatch(setProducts(res.data));
@@ -37,7 +37,7 @@ export default function ShowTable() {
     event.preventDefault();
     axios
       .get(
-        `http://localhost:8080/flightbyname?startairport=${event.target.startairport.value}&endairport=${event.target.endairport.value}`
+        `https://flight-airport.herokuapp.com/flightbyname?startairport=${event.target.startairport.value}&endairport=${event.target.endairport.value}`
       )
       .then((res) => {
         console.log(res.data);
