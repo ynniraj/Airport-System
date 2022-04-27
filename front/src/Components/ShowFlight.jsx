@@ -89,7 +89,7 @@ export default function ShowTable() {
                   required
                   fullWidth
                   id="startairport"
-                  label="Start Airport"
+                  label="From"
                   name="startairport"
                   autoComplete="off"
                 />
@@ -101,7 +101,7 @@ export default function ShowTable() {
                   required
                   fullWidth
                   id="endairport"
-                  label="End Airport"
+                  label="To"
                   autoFocus
                 />
               </Grid>
