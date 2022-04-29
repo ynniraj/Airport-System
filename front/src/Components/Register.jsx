@@ -12,12 +12,13 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function Register() {
   const navigate = useNavigate();
+  const [showerr, setShowerr] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,16 +31,16 @@ export default function SignUp() {
 
     axios
       .post("http://localhost:8080/register", payload)
-      .then((res) => {
-        console.log(res.data);
-        alert("User created successfully");
+      .then((response) => {
+        console.log(response);
+        alert("Register Successfull");
+        navigate("/login");
       })
       .catch((err) => {
-        console.log(err);
+        setShowerr(true);
       });
   };
   //if field is empty disable buttons
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -55,20 +56,9 @@ export default function SignUp() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Box sx={{ width: "23%", paddingTop: "10px", overflow: "hidden" }}>
-            <label htmlFor="upload-photo">
-              <FileBase64
-                id="upload-photo"
-                name="upload-photo"
-                type="file"
-                multiple={false}
-                onDone={(file) => {
-                  console.log(JSON.stringify(file.base64));
-                  setFile(file.base64);
-                }}
-              />
-            </label>
-          </Box>
+          <Typography component="h1" variant="h5">
+            Register
+          </Typography>
           <Box
             component="form"
             noValidate
@@ -83,7 +73,8 @@ export default function SignUp() {
                   required={true}
                   fullWidth
                   id="Username"
-                  label="Username"
+                  InputLabelProps={showerr ? { style: { color: "red" } } : null}
+                  label={showerr ? "Invalid Name" : "Name"}
                   autoFocus
                 />
               </Grid>
@@ -93,7 +84,8 @@ export default function SignUp() {
                   required={true}
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  InputLabelProps={showerr ? { style: { color: "red" } } : null}
+                  label={showerr ? "Invalid Email" : "Email"}
                   name="email"
                   autoComplete="off"
                 />
@@ -103,18 +95,9 @@ export default function SignUp() {
                 <TextField
                   required={true}
                   fullWidth
-                  id="phone"
-                  label="Phone Number"
-                  name="phone"
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required={true}
-                  fullWidth
                   name="password"
-                  label="Password"
+                  InputLabelProps={showerr ? { style: { color: "red" } } : null}
+                  label={showerr ? "Invalid Password" : "Password"}
                   type="password"
                   id="password"
                   autoComplete="new-password"

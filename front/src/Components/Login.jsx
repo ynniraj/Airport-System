@@ -14,13 +14,18 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../Redux/action";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [showerr, setShowerr] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const payload = {
@@ -30,15 +35,18 @@ export default function SignIn() {
 
     axios
       .post("http://localhost:8080/login", payload)
-      .then((res) => {
-        alert("Login successfully");
-        console.log(res);
+      .then((response) => {
+        console.log(response);
+        alert("Login Successfull");
+        localStorage.setItem("token", response.data.token);
+
+        dispatch(userLogin(response.data.token));
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        setShowerr(true);
       });
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -55,7 +63,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
           <Box
             component="form"
@@ -68,7 +76,8 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email"
+              InputLabelProps={showerr ? { style: { color: "red" } } : null}
+              label={showerr ? "Invalid Email" : "Email"}
               name="email"
               autoFocus
             />
@@ -77,7 +86,8 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              InputLabelProps={showerr ? { style: { color: "red" } } : null}
+              label={showerr ? "Invalid Password" : "Password"}
               type="password"
               id="password"
               autoComplete="current-password"
@@ -104,7 +114,7 @@ export default function SignIn() {
               <Grid item>
                 <Link
                   onClick={() => navigate("/register")}
-                  sx={{ cursor: "ponter" }}
+                  sx={{ cursor: "pointer" }}
                   variant="body2"
                 >
                   {"Don't have an account? Sign Up"}

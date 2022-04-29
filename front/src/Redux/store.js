@@ -1,8 +1,9 @@
 import { createStore, combineReducers } from 'redux';
-import { getDataReducer } from '../Redux/reducer';
+import { getDataReducer, LogInReducer } from '../Redux/reducer';
 
 const rootReducer = combineReducers({
     getDataReducer,
+    LogInReducer
 })
 
 export const store = createStore(rootReducer,
