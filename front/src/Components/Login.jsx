@@ -34,7 +34,7 @@ export default function Login() {
     };
 
     axios
-      .post("http://localhost:8080/login", payload)
+      .post("https://flight-airport.herokuapp.com/login", payload)
       .then((response) => {
         console.log(response);
         alert("Login Successfull");

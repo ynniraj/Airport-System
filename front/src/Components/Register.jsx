@@ -30,7 +30,7 @@ export default function Register() {
     };
 
     axios
-      .post("http://localhost:8080/register", payload)
+      .post("https://flight-airport.herokuapp.com/register", payload)
       .then((response) => {
         console.log(response);
         alert("Register Successfull");
