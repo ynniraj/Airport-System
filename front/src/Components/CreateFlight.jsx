@@ -35,11 +35,14 @@ export default function CreateFlight() {
       .post("https://flight-airport.herokuapp.com/createflight", payload)
       .then((res) => {
         console.log(res);
-
-        alert("flight Details created successfully");
+        toast.success("Flight Details created successfully", {
+          position: "top-center",
+        });
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Flight Details Failed", {
+          position: "top-center",
+        });
       });
   };
 
@@ -172,6 +175,7 @@ export default function CreateFlight() {
           </Box>
         </Container>
       </Box>
+      <ToastContainer />
     </ThemeProvider>
   );
 }
