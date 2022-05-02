@@ -24,7 +24,7 @@ export const loginLogout = () => ({
 
 
 
-export const loginSuccessData = (data, navigate) => (dispatch) => {
+export const loginSuccessData = (data, navigate, setShowerr) => (dispatch) => {
     dispatch(loginLoding());
     axios
         .post("https://flight-airport.herokuapp.com/login", data)
@@ -36,7 +36,7 @@ export const loginSuccessData = (data, navigate) => (dispatch) => {
         })
         .catch((err) => {
             dispatch(loginError());
-            alert("login failed")
+            setShowerr(true)
         });
 };
 

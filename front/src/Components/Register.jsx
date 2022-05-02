@@ -10,9 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { registerSuccessData } from "../Redux/Register/action";
 import { useDispatch } from "react-redux";
 
@@ -32,7 +31,7 @@ export default function Register() {
       password: event.target.password.value,
     };
 
-    dispatch(registerSuccessData(payload));
+    dispatch(registerSuccessData(payload, setShowerr));
   };
   //if field is empty disable buttons
   return (

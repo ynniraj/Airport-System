@@ -12,7 +12,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -31,7 +30,7 @@ export default function Login() {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-    dispatch(loginSuccessData(payload, navigate));
+    dispatch(loginSuccessData(payload, navigate, setShowerr));
   };
   return (
     <ThemeProvider theme={theme}>
