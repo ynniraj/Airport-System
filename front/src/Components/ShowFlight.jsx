@@ -16,7 +16,6 @@ export default function ShowTable() {
   const dispatch = useDispatch();
 
   const { data: flightData, loading } = useSelector((store) => store.flight);
-  console.log(loading);
 
   const [connect, setConnect] = useState(false);
 

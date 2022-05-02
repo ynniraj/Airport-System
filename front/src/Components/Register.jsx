@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerSuccessData } from "../Redux/Register/action";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme();
 
@@ -31,7 +33,7 @@ export default function Register() {
       password: event.target.password.value,
     };
 
-    dispatch(registerSuccessData(payload, setShowerr));
+    dispatch(registerSuccessData(payload, setShowerr, navigate, toast));
   };
   //if field is empty disable buttons
   return (
@@ -132,6 +134,7 @@ export default function Register() {
           </Box>
         </Box>
       </Container>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

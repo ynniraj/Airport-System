@@ -16,16 +16,24 @@ export const registerSuccess = (payload) => ({
 });
 
 
-export const registerSuccessData = (data, setShowerr) => (dispatch) => {
+export const registerSuccessData = (data, setShowerr, navigate, toast) => (dispatch) => {
     dispatch(registerLoding());
     axios
         .post("https://flight-airport.herokuapp.com/register", data)
         .then(({ data }) => {
             dispatch(registerSuccess(data));
-            alert("Register Success")
+            toast.success("Registration Successfull", {
+                position: "top-center",
+            });
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
         })
         .catch((err) => {
             dispatch(registerError());
+            toast.error("Registration Failed", {
+                position: "top-center",
+            });
             setShowerr(true)
         });
 };

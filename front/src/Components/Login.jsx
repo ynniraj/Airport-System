@@ -14,8 +14,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccessData } from "../Redux/Login/action";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme();
 
@@ -24,14 +26,18 @@ export default function Login() {
   const dispatch = useDispatch();
   const [showerr, setShowerr] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const { loding, error } = useSelector((store) => store.login);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     const payload = {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-    dispatch(loginSuccessData(payload, navigate, setShowerr));
+    dispatch(loginSuccessData(payload, navigate, setShowerr, toast));
   };
+
+  const notify = () => toast("Wow so easy !");
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -78,10 +84,29 @@ export default function Login() {
               autoComplete="current-password"
             />
 
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            {loding ? (
+              <div
+                style={{
+                  height: "80px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp?cid=ecf05e47cum4nbvgem4krbwqndsxab7obx8hq20g5l2hygcx&rid=giphy.webp&ct=g"
+                  alt=""
+                  style={{
+                    width: "60%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
+            ) : null}
             <Button
               type="submit"
               fullWidth
@@ -90,6 +115,7 @@ export default function Login() {
             >
               Sign In
             </Button>
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -109,6 +135,7 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

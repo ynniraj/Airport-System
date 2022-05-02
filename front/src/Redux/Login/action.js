@@ -24,18 +24,25 @@ export const loginLogout = () => ({
 
 
 
-export const loginSuccessData = (data, navigate, setShowerr) => (dispatch) => {
+export const loginSuccessData = (data, navigate, setShowerr, toast) => (dispatch) => {
     dispatch(loginLoding());
     axios
         .post("https://flight-airport.herokuapp.com/login", data)
         .then(({ data }) => {
             dispatch(loginSuccess(data));
-            alert("login Success")
             localStorage.setItem("auth", true);
-            navigate("/");
+            toast.success("Logged in Successfully", {
+                position: "top-center",
+            });
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
         })
         .catch((err) => {
             dispatch(loginError());
+            toast.error("Logged in Failed", {
+                position: "top-center",
+            });
             setShowerr(true)
         });
 };
