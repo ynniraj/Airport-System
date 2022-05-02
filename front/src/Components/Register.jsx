@@ -13,11 +13,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { registerSuccessData } from "../Redux/Register/action";
+import { useDispatch } from "react-redux";
 
 const theme = createTheme();
 
 export default function Register() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showerr, setShowerr] = useState(false);
 
   const handleSubmit = (event) => {
@@ -29,16 +32,7 @@ export default function Register() {
       password: event.target.password.value,
     };
 
-    axios
-      .post("https://flight-airport.herokuapp.com/register", payload)
-      .then((response) => {
-        console.log(response);
-        alert("Register Successfull");
-        navigate("/login");
-      })
-      .catch((err) => {
-        setShowerr(true);
-      });
+    dispatch(registerSuccessData(payload));
   };
   //if field is empty disable buttons
   return (

@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogin } from "../Redux/action";
+import { loginSuccess, loginLogout } from "../Redux/Login/action";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,9 +62,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const token = useSelector((store) => store.LogInReducer.token);
-  const localStorageToken = localStorage.getItem("token");
-  dispatch(userLogin(localStorageToken));
+  const auth = useSelector((store) => store.login.isAuth);
+  // console.log(auth);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -160,8 +159,8 @@ export default function Navbar() {
   );
 
   const handleLogout = () => {
-    dispatch(userLogin({}));
-    localStorage.setItem("token", "");
+    dispatch(loginLogout());
+    localStorage.setItem("auth", "");
   };
 
   return (
@@ -207,21 +206,7 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          {token ? (
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                display: { xs: "none", sm: "block" },
-                ml: 3,
-                cursor: "pointer",
-              }}
-              onClick={handleLogout}
-            >
-              Logout
-            </Typography>
-          ) : (
+          {!auth ? (
             <>
               <Typography
                 variant="h6"
@@ -250,6 +235,20 @@ export default function Navbar() {
                 Register
               </Typography>{" "}
             </>
+          ) : (
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                ml: 3,
+                cursor: "pointer",
+              }}
+              onClick={handleLogout}
+            >
+              Logout
+            </Typography>
           )}
         </Toolbar>
       </AppBar>

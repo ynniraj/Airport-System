@@ -16,7 +16,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { userLogin } from "../Redux/action";
+import { loginSuccessData } from "../Redux/Login/action";
 
 const theme = createTheme();
 
@@ -27,27 +27,11 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const payload = {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-
-    axios
-      .post("https://flight-airport.herokuapp.com/login", payload)
-      .then((response) => {
-        console.log(response);
-        alert("Login Successfull");
-        localStorage.setItem("token", response.data.token);
-
-        dispatch(userLogin(response.data.token));
-        navigate("/");
-      })
-      .catch((err) => {
-
-        setShowerr(true);
-
-      });
+    dispatch(loginSuccessData(payload, navigate));
   };
   return (
     <ThemeProvider theme={theme}>

@@ -1,17 +1,21 @@
 import * as React from "react";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, Grid, TextField } from "@mui/material";
 import NonConnecting from "./NonConnecting";
 import Connecting from "./Connecting";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../Redux/action";
+import {
+  flightSuccessData,
+  searchflightSuccessData,
+} from "../Redux/Flight/action";
+
+// import { setProducts } from "../Redux/action";
 
 export default function ShowTable() {
   const dispatch = useDispatch();
 
-  const flightData = useSelector((store) => store.getDataReducer.products);
+  const flightData = useSelector((store) => store.flight.data);
 
   //   const [flightData, setFlightData] = useState([]);
   const [connect, setConnect] = useState(false);
@@ -21,33 +25,17 @@ export default function ShowTable() {
   }, []);
 
   const getallflight = () => {
-    axios
-      .get("https://flight-airport.herokuapp.com/allflights")
-      .then((res) => {
-        console.log(res.data);
-        dispatch(setProducts(res.data));
-        // setFlightData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(flightSuccessData());
   };
 
   const handleSearchFlight = (event) => {
     event.preventDefault();
-    axios
-      .get(
-        `https://flight-airport.herokuapp.com/flightbyname?startairport=${event.target.startairport.value}&endairport=${event.target.endairport.value}`
-      )
-      .then((res) => {
-        console.log(res.data);
-        dispatch(setProducts(res.data));
+    const payload = {
+      start: event.target.startairport.value,
+      end: event.target.endairport.value,
+    };
+    dispatch(searchflightSuccessData(payload.start, payload.end));
 
-        // setFlightData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     setConnect(true);
   };
 
