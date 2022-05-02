@@ -180,9 +180,8 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block", cursor: "pointer" } }}
             onClick={() => navigate("/")}
-            cursor="pointer"
           >
             Flight
           </Typography>
@@ -190,9 +189,12 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" }, ml: 3 }}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              ml: 3,
+              cursor: "pointer",
+            }}
             onClick={() => navigate("/createflight")}
-            cursor="pointer"
           >
             CreateFlight
           </Typography>
