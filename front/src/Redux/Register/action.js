@@ -16,9 +16,9 @@ export const registerSuccess = (payload) => ({
 });
 
 
-export const registerSuccessData = (data, setShowerr, navigate, toast) => (dispatch) => {
+export const registerSuccessData = (data, setShowerr, navigate, toast) => async (dispatch) => {
     dispatch(registerLoding());
-    axios
+    await axios
         .post("https://flight-airport.herokuapp.com/register", data)
         .then(({ data }) => {
             dispatch(registerSuccess(data));
