@@ -38,6 +38,7 @@ export default function CreateFlight() {
         toast.success("Flight Details created successfully", {
           position: "top-center",
         });
+        navigate("/");
       })
       .catch((err) => {
         toast.error("Flight Details Failed", {
