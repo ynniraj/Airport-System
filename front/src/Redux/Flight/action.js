@@ -16,9 +16,9 @@ export const flightSuccess = (payload) => ({
 });
 
 
-export const flightSuccessData = (data) => (dispatch) => {
+export const flightSuccessData = (data) => async (dispatch) => {
     dispatch(flightLoading());
-    axios
+    await axios
         .get("https://flight-airport.herokuapp.com/allflights")
         .then(({ data }) => {
             dispatch(flightSuccess(data));
@@ -28,9 +28,9 @@ export const flightSuccessData = (data) => (dispatch) => {
         });
 };
 
-export const searchflightSuccessData = (start, end) => (dispatch) => {
+export const searchflightSuccessData = (start, end) => async (dispatch) => {
     dispatch(flightLoading());
-    axios
+    await axios
         .get(`https://flight-airport.herokuapp.com/flightbyname?startairport=${start}&endairport=${end}`)
         .then(({ data }) => {
             dispatch(flightSuccess(data));
