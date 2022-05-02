@@ -15,7 +15,8 @@ import {
 export default function ShowTable() {
   const dispatch = useDispatch();
 
-  const flightData = useSelector((store) => store.flight.data);
+  const { data: flightData, loading } = useSelector((store) => store.flight);
+  console.log(loading);
 
   //   const [flightData, setFlightData] = useState([]);
   const [connect, setConnect] = useState(false);
@@ -41,76 +42,98 @@ export default function ShowTable() {
 
   return (
     <>
-      <Box>
-        <Box sx={{ ml: 4, mt: 4 }}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => setConnect(true)}
-          >
-            Connecting Flights
-          </Button>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => setConnect(false)}
-            sx={{ ml: 3 }}
-          >
-            Non-Connecting Flights
-          </Button>
-        </Box>
-        <Box display="flex" justifyContent="center">
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSearchFlight}
-            sx={{ mt: 3 }}
-            width={500}
-          >
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid item xs={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="startairport"
-                  label="From"
-                  name="startairport"
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  autoComplete="off"
-                  name="endairport"
-                  required
-                  fullWidth
-                  id="endairport"
-                  label="To"
-                  autoFocus
-                />
-              </Grid>
-            </Grid>
+      {loading ? (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src="https://media1.giphy.com/media/kUTME7ABmhYg5J3psM/200.webp?cid=ecf05e47sadsaggykaoz49yqduo5hyrw95v3cjlfw0nj9jm1&rid=200.webp&ct=g"
+            alt="loading"
+            style={{
+              width: "50%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        </div>
+      ) : (
+        <Box>
+          <Box sx={{ ml: 4, mt: 4 }}>
             <Button
-              type="submit"
-              fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              color="success"
+              onClick={() => setConnect(true)}
             >
-              Search Flights
+              Connecting Flights
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => setConnect(false)}
+              sx={{ ml: 3 }}
+            >
+              Non-Connecting Flights
             </Button>
           </Box>
-        </Box>
+          <Box display="flex" justifyContent="center">
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSearchFlight}
+              sx={{ mt: 3 }}
+              width={500}
+            >
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid item xs={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="startairport"
+                    label="From"
+                    name="startairport"
+                    autoComplete="off"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    autoComplete="off"
+                    name="endairport"
+                    required
+                    fullWidth
+                    id="endairport"
+                    label="To"
+                    autoFocus
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Search Flights
+              </Button>
+            </Box>
+          </Box>
 
-        {!connect ? (
-          <NonConnecting flightData={flightData} />
-        ) : (
-          <Connecting flightData={flightData} />
-        )}
-      </Box>
+          {!connect ? (
+            <NonConnecting flightData={flightData} />
+          ) : (
+            <Connecting flightData={flightData} />
+          )}
+        </Box>
+      )}
     </>
   );
 }
