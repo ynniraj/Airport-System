@@ -21,7 +21,7 @@ export const loginReducer = (store = initialState, { type, payload }) => {
             return { ...store, loding: false, error: true, isAuth: false };
 
         case LOGIN_SUCCESS:
-            return { ...store, loding: false, error: false, users: payload, isAuth: payload, token: payload.token };
+            return { ...store, loding: false, error: false, users: payload, isAuth: payload, token: payload };
 
         case LOGIN_LOGOUT:
             return { ...initialState };
