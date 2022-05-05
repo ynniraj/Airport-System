@@ -25,6 +25,7 @@ export const registerSuccessData = (data, setShowerr, navigate, toast) => async 
             toast.success("Registration Successfull", {
                 position: "top-center",
             });
+            setShowerr(false);
             setTimeout(() => {
                 navigate("/login");
             }, 2000);

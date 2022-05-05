@@ -34,6 +34,7 @@ export const loginSuccessData = (data, navigate, setShowerr, toast) => (dispatch
             toast.success("Logged in Successfully", {
                 position: "top-center",
             });
+            setShowerr(false);
             setTimeout(() => {
                 navigate("/");
             }, 2000);
