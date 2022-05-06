@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loginLogout } from "../Redux/Login/action";
+import { loginLogout, getoneData } from "../Redux/Login/action";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,6 +63,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   const auth = useSelector((store) => store.login.token);
+  const userDetails = useSelector((store) => store.login.users);
   // console.log(auth);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -208,6 +209,20 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
+          {!auth ? null : (
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                ml: 3,
+                cursor: "pointer",
+              }}
+            >
+              {userDetails.name}
+            </Typography>
+          )}
           {!auth ? (
             <>
               <Typography

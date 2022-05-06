@@ -67,4 +67,16 @@ const login = async (req, res) => {
 };
 
 
-module.exports = { register, login };
+const getOne = async (req, res) => {
+    try {
+        const items = await User.findById(req.params.id).lean().exec();
+
+        return res.status(201).send(items)
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message, status: "Failed" });
+    }
+}
+
+
+module.exports = { register, login, getOne };

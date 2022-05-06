@@ -9,6 +9,7 @@ import {
   flightSuccessData,
   searchflightSuccessData,
 } from "../Redux/Flight/action";
+import { getoneData } from "../Redux/Login/action";
 
 // import { setProducts } from "../Redux/action";
 
@@ -21,6 +22,7 @@ export default function ShowTable() {
 
   useEffect(() => {
     getallflight();
+    dispatch(getoneData());
   }, []);
 
   const getallflight = () => {

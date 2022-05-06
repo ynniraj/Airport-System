@@ -9,6 +9,8 @@ export const LOGIN_LODING = "LOGIN_LODING";
 
 export const LOGIN_LOGOUT = "LOGIN_LOGOUT";
 
+export const GET_ONE = "GET_ONE";
+
 export const loginLoding = () => ({ type: LOGIN_LODING });
 
 export const loginError = () => ({ type: LOGIN_ERROR });
@@ -22,6 +24,10 @@ export const loginLogout = () => ({
     type: LOGIN_LOGOUT
 });
 
+export const getone = (payload) => ({
+    type: GET_ONE,
+    payload,
+});
 
 
 export const loginSuccessData = (data, navigate, setShowerr, toast) => (dispatch) => {
@@ -31,6 +37,7 @@ export const loginSuccessData = (data, navigate, setShowerr, toast) => (dispatch
         .then(({ data }) => {
             dispatch(loginSuccess(data));
             localStorage.setItem("auth", data.token);
+            localStorage.setItem("user._id", data.user._id);
             toast.success("Logged in Successfully", {
                 position: "top-center",
             });
@@ -45,6 +52,22 @@ export const loginSuccessData = (data, navigate, setShowerr, toast) => (dispatch
                 position: "top-center",
             });
             setShowerr(true)
+        });
+};
+
+export const getoneData = () => (dispatch) => {
+    const userid = localStorage.getItem("user._id");
+    const usertoken = localStorage.getItem("auth");
+
+    axios
+        .get(`http://localhost:8080/getone/${userid}`, {
+            headers: { token: `Bearer ${usertoken}` },
+        })
+        .then(({ data }) => {
+            dispatch(getone(data));
+        })
+        .catch((err) => {
+            console.log(err);
         });
 };
 
