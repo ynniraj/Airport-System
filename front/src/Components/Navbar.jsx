@@ -62,7 +62,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const auth = useSelector((store) => store.login.isAuth);
+  const auth = useSelector((store) => store.login.token);
   // console.log(auth);
 
   const [anchorEl, setAnchorEl] = React.useState(null);

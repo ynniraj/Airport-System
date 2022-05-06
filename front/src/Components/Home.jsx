@@ -7,7 +7,7 @@ import Register from "./Register";
 const Home = () => {
   const dispatch = useDispatch();
 
-  const auth = useSelector((store) => store.login.isAuth);
+  const auth = useSelector((store) => store.login.token);
 
   const token = localStorage.getItem("auth");
   dispatch(loginSuccess(token));

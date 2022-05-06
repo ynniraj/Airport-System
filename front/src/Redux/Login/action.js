@@ -30,7 +30,7 @@ export const loginSuccessData = (data, navigate, setShowerr, toast) => (dispatch
         .post("https://flight-airport.herokuapp.com/login", data)
         .then(({ data }) => {
             dispatch(loginSuccess(data));
-            localStorage.setItem("auth", true);
+            localStorage.setItem("auth", data.token);
             toast.success("Logged in Successfully", {
                 position: "top-center",
             });
