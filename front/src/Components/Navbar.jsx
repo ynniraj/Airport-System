@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loginLogout, getoneData } from "../Redux/Login/action";
+import { loginLogout } from "../Redux/Login/action";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
